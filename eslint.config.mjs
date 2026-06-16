@@ -13,6 +13,7 @@ const eslintConfig = defineConfig([
     'build/**',
     'next-env.d.ts',
   ]),
+  { ignores: ['coverage/**'] },
 ]);
 
 export default eslintConfig;
