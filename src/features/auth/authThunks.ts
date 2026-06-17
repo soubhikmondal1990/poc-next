@@ -3,8 +3,8 @@ import { authService } from '@/services/auth';
 import { LoginRequest, LoginResponse, AuthError } from './auth.types';
 
 export const loginThunk = createAsyncThunk<
-  LoginResponse, // return type (fulfilled)
-  LoginRequest, // input type
+  LoginResponse,
+  LoginRequest,
   {
     rejectValue: AuthError;
   }
