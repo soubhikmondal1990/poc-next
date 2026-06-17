@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is a Next.js + TypeScript POC for a login UI (Redux Toolkit, axios, i18n).
 
-## Getting Started
+**Getting started**
 
-First, run the development server:
+Prerequisites: Node.js (>=18), npm.
+
+Install dependencies:
+
+```bash
+npm ci
+```
+
+Run development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Build for environments:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build:ist   # build using .env.ist
+npm run build:prod  # build using .env.prod
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Start production server (after build):
 
-## Learn More
+```bash
+npm start
+```
 
-To learn more about Next.js, take a look at the following resources:
+**Available scripts** (in `package.json`)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `dev`: Next dev server
+- `build:ist`, `build:prod`: builds using `dotenv-cli` with `.env.ist` / `.env.prod`
+- `start`: starts the built Next server
+- `lint`: runs `eslint` (update to `eslint . --ext .ts,.tsx` recommended)
+- `format`: runs `prettier --write .`
+- `test`: runs Jest
+- `test:coverage`: runs Jest with coverage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Environment variables**
 
-## Deploy on Vercel
+Create an `.env` file or the environment-specific files used by the build scripts. At minimum the app expects:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `NEXT_PUBLIC_API_BASE_URL` — base URL for the backend API (required for API calls)
+- `NEXT_PUBLIC_ENV` — environment name (defaults to `local`)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Add a `.env.example` in the repo with those keys to make onboarding easier.
+
+**Testing & coverage**
+
+This project uses Jest (configured via `next/jest`). Run tests with:
+
+```bash
+npm test
+```
+
+The repo configures coverage thresholds in `jest.config.mjs`. Current local run may fail CI if coverage is below thresholds — either add tests or adjust thresholds intentionally.
+
+**Lint & format**
+
+Run the linter and formatter:
+
+```bash
+npm run lint
+npm run format
+```
+
+Recommend updating `lint` script to target files explicitly and adding `--fix` in CI/hook automation.
+
+**Notes & next steps**
+
+- I fixed a couple of small runtime/type issues in the repo (interceptor header handling, missing `AuthError` type) to avoid build/runtime failures. See git history for details.
+- Recommended additions: `.env.example`, CI workflow (lint/test/build), `husky` + `lint-staged` pre-commit hooks, more unit tests to raise coverage.
+
+If you want, I can add a `.env.example` and a GitHub Actions CI template next.
